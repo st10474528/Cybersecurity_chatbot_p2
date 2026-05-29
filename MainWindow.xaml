@@ -5,30 +5,223 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cybersecurity_chatbot_p2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Cybersecurity Awareness Chatbot - South Africa"
+        Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#1a1a2e">
+
     <Grid>
-        <!-- start of parent -->
+        <!-- HOME GRID - Landing Page -->
+        <Grid x:Name="home_grid" Visibility="Visible" Background="#1a1a2e">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <!-- grid for logo-->
-        <Grid>
-            <!-- start of logo grid -->
-            <Image  
-                Height="250"
-                Width="400"
-                Margin="0,0,0,100"
-                Source="/logo.jpg"
-                />
+            <Image Grid.Row="0" 
+                   Source="/logo.jpg"
+                   Height="200"
+                   Width="300"
+                   Margin="0,50,0,0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-            <!-- button to start the AI -->
-            <Button  
-                Height="50"
-                Width="250"
-                Margin="0,300,0,0"
-                Content="Start ChatBot"
-                />
+            <TextBlock Grid.Row="1"
+                       Text="Welcome to Cybersecurity Awareness Chatbot"
+                       Height="30"
+                       Width="400"
+                       TextAlignment="Center"
+                       Margin="0,20,0,0"
+                       FontSize="16"
+                       FontFamily="Segoe UI"
+                       Foreground="White"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
 
+            <TextBlock Grid.Row="1"
+                       Text="Protecting South African citizens from cyber threats"
+                       Height="25"
+                       Width="350"
+                       TextAlignment="Center"
+                       Margin="0,55,0,0"
+                       FontSize="12"
+                       FontFamily="Segoe UI"
+                       Foreground="#aaaaaa"
+                       HorizontalAlignment="Center"/>
+
+            <Button Grid.Row="2"
+                    Height="40"
+                    Width="200"
+                    Margin="0,20,0,50"
+                    Content="Proceed"
+                    Click="proceed"
+                    Background="#00ff9d"
+                    Foreground="#1a1a2e"
+                    FontWeight="Bold"
+                    FontSize="14"
+                    Cursor="Hand"
+                    HorizontalAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
-        <!-- end of logo grid -->
 
-    </Grid><!-- end of parent -->
+        <!-- USERNAME GRID - Get User Name -->
+        <Grid x:Name="username_grid" Visibility="Hidden" Background="#1a1a2e">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" 
+                   Source="/logo.jpg"
+                   Height="150"
+                   Width="250"
+                   Margin="0,50,0,0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="1"
+                       Text="Enter your username to begin"
+                       Height="25"
+                       Width="300"
+                       TextAlignment="Center"
+                       Margin="0,20,0,0"
+                       FontSize="14"
+                       FontFamily="Segoe UI"
+                       Foreground="White"
+                       HorizontalAlignment="Center"/>
+
+            <TextBox Grid.Row="2"
+                     x:Name="usernames_input"
+                     Height="40"
+                     Width="270"
+                     TextAlignment="Center"
+                     Margin="0,20,0,0"
+                     FontSize="14"
+                     FontFamily="Segoe UI"
+                     Background="#0f3460"
+                     Foreground="White"
+                     BorderBrush="#00ff9d"
+                     BorderThickness="1"
+                     HorizontalAlignment="Center"/>
+
+            <TextBlock Grid.Row="3"
+                       x:Name="errorMsg"
+                       Text="Please enter username to continue..."
+                       Height="20"
+                       Width="270"
+                       TextAlignment="Center"
+                       Margin="0,10,0,0"
+                       Foreground="#ff6666"
+                       FontSize="12"
+                       FontFamily="Segoe UI"
+                       Visibility="Visible"
+                       HorizontalAlignment="Center"/>
+
+            <Button Grid.Row="4"
+                    Height="40"
+                    Width="200"
+                    Margin="0,20,0,50"
+                    Content="Start Chatting"
+                    Click="submit_name"
+                    Background="#00ff9d"
+                    Foreground="#1a1a2e"
+                    FontWeight="Bold"
+                    FontSize="14"
+                    Cursor="Hand"
+                    HorizontalAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+
+        <!-- CHAT GRID - Main Chat Interface -->
+        <Grid x:Name="chat_grid" Visibility="Hidden" Background="#1a1a2e">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="#16213e" Padding="10" CornerRadius="0,0,10,10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Cybersecurity Chatbot" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="#00ff9d"
+                               Margin="0,0,10,0"/>
+                    <TextBlock Text="| Ask me about online safety" 
+                               FontSize="12" 
+                               Foreground="#aaaaaa"/>
+                </StackPanel>
+            </Border>
+
+            <ListView Grid.Row="1" 
+                      x:Name="chats" 
+                      Margin="10"
+                      Background="#0f3460"
+                      BorderThickness="0"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="0,2,0,2"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+
+            <Border Grid.Row="2" Background="#16213e" Padding="10" CornerRadius="10,10,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             x:Name="question"
+                             Height="50"
+                             FontSize="14"
+                             FontFamily="Segoe UI"
+                             Background="#0f3460"
+                             Foreground="White"
+                             BorderBrush="#00ff9d"
+                             BorderThickness="1"
+                             Padding="10"
+                             TextWrapping="Wrap"
+                             VerticalContentAlignment="Center"
+                             KeyDown="UserInput_KeyDown"/>
+
+                    <Button Grid.Column="1"
+                            Height="50"
+                            Width="80"
+                            Margin="10,0,0,0"
+                            Content="Send"
+                            Click="send"
+                            Background="#00ff9d"
+                            Foreground="#1a1a2e"
+                            FontWeight="Bold"
+                            FontSize="14"
+                            Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
 </Window>
